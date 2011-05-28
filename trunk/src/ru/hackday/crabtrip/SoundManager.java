@@ -33,19 +33,23 @@ public class SoundManager {
 		mSounds.put("drum", id);
 		id = mSoundPool.load(mCtx, R.raw.helmet2, 1);
 		mSounds.put("obstacle", id);
+		id = mSoundPool.load(mCtx, R.raw.pata, 1);
+		mSounds.put("pata", id);
+		id = mSoundPool.load(mCtx, R.raw.pon, 1);
+		mSounds.put("pon", id);
 	}
 	
 	private int idByName(String name) {
 		return mSounds.get(name);
 	}
 	
-	public void startDrum() {
-		mSoundPool.play(idByName("drum"), 0.75f, 0.75f, 1, INF_LOOP, 1);
+	public void playDrum() {
+		mSoundPool.play(idByName("drum"), 0.75f, 0.75f, 1, 0, 1);
 	}
 	
-	public void stopDrum() {
-		mSoundPool.stop(idByName("drum"));
-	}
+//	public void stopDrum() {
+//		mSoundPool.stop(idByName("drum"));
+//	}
 	
 	public void playCrash() {
 		mSoundPool.play(idByName("crash"), 1f, 1f, 1, 0, 1);
@@ -86,6 +90,16 @@ public class SoundManager {
 //		right *= (Math.pow(0.75, distance));
 		
 		mSoundPool.play(id, left, right, 1, INF_LOOP, distance);
+	}
+
+	public void playPata() {
+		int id = idByName("pata");
+		mSoundPool.play(id, 1, 1, 1, 0, 0);
+	}
+
+	public void playPon() { 
+		int id = idByName("pon");
+		mSoundPool.play(id, 1, 1, 1, 0, 0);
 	}
 	   
 	
