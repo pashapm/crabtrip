@@ -14,6 +14,7 @@ public class LandingActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		Button b = new Button(this);
+		b.setText("LET THE GAME BEGIN");
 		setContentView(b);
 		b.setOnClickListener(new OnClickListener() {
 			
