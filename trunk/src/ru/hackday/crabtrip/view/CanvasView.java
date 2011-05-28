@@ -9,7 +9,7 @@ import android.view.View;
 
 public class CanvasView extends View {
 
-    public static final Paint PAINT = new Paint();
+    public static final Paint PAINT = new Paint();   
 
     public CanvasView(Context context) {
         super(context);
@@ -31,10 +31,23 @@ public class CanvasView extends View {
     }
 
     private int i = 0;
-
+    private int mPosition = 10;
+    
     @Override
     protected void onDraw(Canvas canvas) {
         if (i++>=getWidth()) i = 0;
-        canvas.drawRect(i, 10, 100 + i, 110, PAINT);
+        canvas.drawRect(i, mPosition, 100 + i, mPosition + 100, PAINT);
+    }
+    
+    public void moveLeft() {
+    	if (mPosition > 10) {
+    		mPosition -= 100;
+    	}
+    }
+    
+    public void moveRight() {
+    	if (mPosition < 200) {
+    		mPosition += 100;
+    	}
     }
 }

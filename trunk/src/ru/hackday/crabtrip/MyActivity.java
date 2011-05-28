@@ -1,25 +1,30 @@
 package ru.hackday.crabtrip;
 
+import ru.hackday.crabtrip.model.Direction;
+import ru.hackday.crabtrip.model.Model;
 import ru.hackday.crabtrip.view.CanvasView;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Handler.Callback;
 import android.os.Message;
 import android.os.Vibrator;
-import android.os.Handler.Callback;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.Window;
 
 public class MyActivity extends Activity implements OnTouchListener {
+	private static final int TICKS_PER_STEP = 40;
+	
 	
 	private Thread mRenderThread;
 	private CanvasView mView;
 	private SoundManager mSoundManager;
 	private Vibrator mVibrator;
+	
+	private Model mModel;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,32 +60,49 @@ public class MyActivity extends Activity implements OnTouchListener {
 					mSoundManager.playPon();
 					break;
 				case 2:
+					mModel.move(Direction.LEFT);
+					mView.moveLeft();
 					mVibrator.vibrate(100);
-					Log.d("CRAAAAAAAAB", "PATA PATA PATA PON!");
+					Log.d("CRAAAAAAAAB", "PATA PATA PATA PON!");					
 					break;
 				case 3:
-					mVibrator.vibrate(100);
+					mModel.move(Direction.RIGHT);
+					mView.moveRight();
+					mVibrator.vibrate(100);					
 					Log.d("CRAAAAAAAAB", "PON PON PATA PON!");
 					break;
 				default:
 					break;
 				}
+				
+				checkGameOver();
 				return true;
-			}
+			}			
 		});
         EventBus.getInstance().mTapHandler = mTapHandler;
+        
+        mModel = new Model();
     }
     
     @Override
     protected void onResume() {
     	mRenderThread =  new Thread(new Runnable() {
             public void run() {
+            	            	
+            	int ticks = 0;
+            	
                 while (! Thread.interrupted()) {
                 	mView.postInvalidate();
                 	try { 
 						Thread.sleep(50);
 					} catch (InterruptedException e) {
 						return;
+					}
+					
+					if (ticks++ % TICKS_PER_STEP == 0) {//TODO test
+						ticks = 1;
+						mModel.move(Direction.FORWARD);
+						checkGameOver();
 					}
                 }
             }
@@ -115,5 +137,12 @@ public class MyActivity extends Activity implements OnTouchListener {
 			break;
 		}
 		return true;
+	}
+	
+	private void checkGameOver() {
+		if (mModel.isGameOver()) {
+			Log.d("CRAAAAAAAAB", "Game Over. Distance = " + mModel.getDistance());
+			mModel.reset();
+		}
 	}
 }
