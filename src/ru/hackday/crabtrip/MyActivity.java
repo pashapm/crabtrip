@@ -5,10 +5,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.os.Handler.Callback;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 
@@ -17,21 +19,24 @@ public class MyActivity extends Activity implements OnTouchListener {
 	private Thread mRenderThread;
 	private CanvasView mView;
 	private SoundManager mSoundManager;
+	private Vibrator mVibrator;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
         mView = (CanvasView) findViewById(R.id.gameView);
         mSoundManager = SoundManager.getInstance(getApplicationContext());
         findViewById(R.id.up).setOnTouchListener(this);
         findViewById(R.id.down).setOnTouchListener(this);
         
+        mVibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        
         Handler drumHandler = new Handler(new Callback() {
 			
 			@Override
 			public boolean handleMessage(Message msg) {
-				Log.d("CRAAAAAAB", "play drum");
 				mSoundManager.playDrum();
 				return true;
 			}
@@ -42,12 +47,23 @@ public class MyActivity extends Activity implements OnTouchListener {
 			
 			@Override
 			public boolean handleMessage(Message msg) {
-				boolean pata = msg.what == 0;
-				Log.d("CRAAAAAAAAB", pata ? "pata" : "pon");
-				if (pata) {
+				switch (msg.what) {
+				case 0:
 					mSoundManager.playPata();
-				} else {
+					break;
+				case 1:
 					mSoundManager.playPon();
+					break;
+				case 2:
+					mVibrator.vibrate(100);
+					Log.d("CRAAAAAAAAB", "PATA PATA PATA PON!");
+					break;
+				case 3:
+					mVibrator.vibrate(100);
+					Log.d("CRAAAAAAAAB", "PON PON PATA PON!");
+					break;
+				default:
+					break;
 				}
 				return true;
 			}
