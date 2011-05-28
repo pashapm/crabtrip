@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
 
-    <Button android:id="@+id/up"
-            android:layout_height="80dp"
-            android:layout_width="fill_parent"
-            android:text="up"/>
+    
 
     <ru.hackday.crabtrip.view.CanvasView
             android:id="@+id/gameView"
-            android:layout_weight="1"
-            android:layout_height="0dp"
-            android:layout_width="fill_parent"/>
+            android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="#ffffff"/>
 
-    <Button android:id="@+id/down"
-            android:layout_height="80dp"
-            android:layout_width="fill_parent"
-            android:text="down"/>
-</LinearLayout>
+    
+<LinearLayout android:id="@+id/LinearLayout01" android:layout_height="fill_parent" android:layout_width="fill_parent" android:orientation="vertical"><Button android:id="@+id/up" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="fill_parent" android:text="PATA" android:background="#3300ff00"/><Button android:id="@+id/down" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="fill_parent" android:text="PON" android:background="#33ff0000"/></LinearLayout>
+</RelativeLayout>
 
