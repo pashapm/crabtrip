@@ -34,7 +34,6 @@ public class CanvasView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        System.out.println("CanvasView.onDraw");
         if (i++>=getWidth()) i = 0;
         canvas.drawRect(i, 10, 100 + i, 110, PAINT);
     }

@@ -11,20 +11,28 @@ public class SoundManager {
 
 	private static SoundManager sInstance;
 	
-	public synchronized SoundManager getInstance(Context ctx) {
+	private static int INF_LOOP = 20;
+	
+	public static synchronized SoundManager getInstance(Context ctx) {
 		if (sInstance == null) {
-			sInstance = new SoundManager();
+			sInstance = new SoundManager(ctx);
 		}
 		return sInstance;
+	}
+	
+	private SoundManager(Context ctx) {
+		mCtx = ctx;
 	}
 	
 	private Context mCtx;
 	private SoundPool mSoundPool = new SoundPool(9, AudioManager.STREAM_MUSIC, 1);
 	private Map<String, Integer> mSounds = new HashMap<String, Integer>();
 	
-	
-	private void loadSounds() {
-		
+	public void loadSounds() {
+		int id = mSoundPool.load(mCtx, R.raw.helmet2, 1);
+		mSounds.put("drum", id);
+		id = mSoundPool.load(mCtx, R.raw.helmet2, 1);
+		mSounds.put("obstacle", id);
 	}
 	
 	private int idByName(String name) {
@@ -32,7 +40,7 @@ public class SoundManager {
 	}
 	
 	public void startDrum() {
-		mSoundPool.play(idByName("drum"), 0.75f, 0.75f, 1, -1, 1);
+		mSoundPool.play(idByName("drum"), 0.75f, 0.75f, 1, INF_LOOP, 1);
 	}
 	
 	public void stopDrum() {
@@ -53,6 +61,9 @@ public class SoundManager {
 	 * @param distance 0, 1, 2
 	 */
 	public void startPlayObstacle(int direction, int distance) {
+		int id = idByName("obstacle");
+		mSoundPool.stop(id);
+		
 		float left = 0, right = 0;
 		switch (direction) {
 		case 0:
@@ -60,11 +71,11 @@ public class SoundManager {
 			right = 0;
 			break;
 		case 1:
-			left = 0;   
+			left = 1;   
 			right = 1 ;
 			break;
 		case 2:
-			left = 1;   
+			left = 0;   
 			right = 1;
 			break;
 		default:
@@ -74,9 +85,7 @@ public class SoundManager {
 //		left *= (Math.pow(0.75, distance));
 //		right *= (Math.pow(0.75, distance));
 		
-		int id = idByName("obstacle");
-		mSoundPool.stop(id);
-		mSoundPool.play(id, left, right, 1, -1, distance);
+		mSoundPool.play(id, left, right, 1, INF_LOOP, distance);
 	}
 	   
 	
