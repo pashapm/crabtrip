@@ -58,16 +58,16 @@ public class SoundManager {
 	public void updateDirection(int direction) {
 		switch (direction) {
 		case 3:
-			mLeft = 0.5f;
+			mLeft = 1f;
 			mRight = 0;
 			break;
 		case 2:
-			mLeft = 0.5f;   
+			mLeft = 1f;   
 			mRight = 0.5f;
 			break;
 		case 1:
 			mLeft = 0;   
-			mRight = 0.5f;
+			mRight = 1f;
 			break;
 		default:
 			break;

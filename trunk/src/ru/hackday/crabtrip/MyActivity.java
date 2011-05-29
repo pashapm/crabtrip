@@ -43,7 +43,8 @@ public class MyActivity extends Activity implements OnTouchListener {
         mSoundManager = SoundManager.getInstance(getApplicationContext());
         findViewById(R.id.up).setOnTouchListener(this);
         findViewById(R.id.down).setOnTouchListener(this);
-        
+//        findViewById(R.id.up).setVisibility(View.INVISIBLE);
+//        findViewById(R.id.down).setVisibility(View.INVISIBLE);
         mVibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         
         Handler drumHandler = new Handler(new Callback() {
@@ -149,14 +150,28 @@ public class MyActivity extends Activity implements OnTouchListener {
 		switch (arg0.getId()) {
 		case R.id.up:
 			EventBus.getInstance().postPatapon(0);
+//			showForWhile(arg0);
 			break;
 		case R.id.down:
 			EventBus.getInstance().postPatapon(1);
+//			showForWhile(arg0);
 			break;
 		default:
 			break;
 		}
 		return true;
+	}
+	
+	private void showForWhile(final View v) {
+		v.setVisibility(View.VISIBLE);
+		Handler h = new Handler();
+		h.postDelayed(new Runnable() {
+			
+			@Override
+			public void run() {
+				v.setVisibility(View.INVISIBLE);
+			}
+		}, 1000);
 	}
 	
 	private void checkGameOver() {
