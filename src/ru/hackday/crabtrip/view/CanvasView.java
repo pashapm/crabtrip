@@ -87,12 +87,10 @@ public class CanvasView extends View {
     private int step = 0;
 
     public void step() {
-        System.out.println("CanvasView.step");
         step++;
     }
 
     public void reset() {
-        System.out.println("CanvasView.reset");
         step = 0;
     }
 }
