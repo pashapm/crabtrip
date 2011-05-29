@@ -16,7 +16,7 @@ import android.view.View.OnTouchListener;
 import android.view.Window;
 
 public class MyActivity extends Activity implements OnTouchListener {
-	private static final int TICKS_PER_STEP = 6;
+	public static final int TICKS_PER_STEP = 6;
 	
 	
 	private Thread mRenderThread;
