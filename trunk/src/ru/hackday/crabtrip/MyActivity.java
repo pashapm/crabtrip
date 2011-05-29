@@ -1,5 +1,6 @@
 package ru.hackday.crabtrip;
 
+import android.media.AudioManager;
 import ru.hackday.crabtrip.model.Direction;
 import ru.hackday.crabtrip.model.Model;
 import ru.hackday.crabtrip.view.CanvasView;
@@ -35,6 +36,7 @@ public class MyActivity extends Activity implements OnTouchListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
         mView = (CanvasView) findViewById(R.id.gameView);
