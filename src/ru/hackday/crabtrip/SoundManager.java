@@ -39,6 +39,8 @@ public class SoundManager {
 		//id = mSoundPool.load(mCtx, R.raw.pon, 1);
 		id = mSoundPool.load(mCtx, R.raw.drum_success, 1);
 		mSounds.put("pon", id);
+		id = mSoundPool.load(mCtx, R.raw.ship_sound, 1);
+		mSounds.put("turn", id);
 	}
 	
 	private int idByName(String name) {
@@ -104,5 +106,13 @@ public class SoundManager {
 		mSoundPool.play(id, 1, 0.5f, 1, 0, 0);
 	}
 	   
+	public void playTurnLeft() {
+		int id = idByName("turn");
+		mSoundPool.play(id, 0, 1, 1, 0, 0);
+	}
 	
+	public void playTurnRight() {
+		int id = idByName("turn");
+		mSoundPool.play(id, 1, 0, 1, 0, 0);
+	}
 }
