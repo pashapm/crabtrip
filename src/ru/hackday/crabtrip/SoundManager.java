@@ -11,7 +11,7 @@ public class SoundManager {
 
 	private static SoundManager sInstance;
 	
-	private static int INF_LOOP = 20;
+	private static int INF_LOOP = 10;
 	
 	public static synchronized SoundManager getInstance(Context ctx) {
 		if (sInstance == null) {
@@ -41,14 +41,41 @@ public class SoundManager {
 		mSounds.put("pon", id);
 		id = mSoundPool.load(mCtx, R.raw.rotate, 1);
 		mSounds.put("turn", id);
+		id = mSoundPool.load(mCtx, R.raw.sonar, 1);
+		mSounds.put("obstacle", id);
 	}
 	
 	private int idByName(String name) {
 		return mSounds.get(name);
 	}
 	
+	float mLeft = 1f;
+	float mRight = 1f;
+	
+	/**
+	 * @param direction 1 - from left, 2 - front, 3 - right
+	 */
+	public void updateDirection(int direction) {
+		switch (direction) {
+		case 3:
+			mLeft = 0.5f;
+			mRight = 0;
+			break;
+		case 2:
+			mLeft = 0.5f;   
+			mRight = 0.5f;
+			break;
+		case 1:
+			mLeft = 0;   
+			mRight = 0.5f;
+			break;
+		default:
+			break;
+		}
+	}
+	
 	public void playDrum() {
-		mSoundPool.play(idByName("drum"), 0.75f, 0.75f, 1, 0, 1);
+		mSoundPool.play(idByName("drum"), mLeft, mRight, 1, 0, 1);
 	}
 	
 //	public void stopDrum() {
@@ -70,8 +97,7 @@ public class SoundManager {
 	}
 	
 	/**
-	 * @param direction 0 - from left, 1 - front, 2 - right
-	 * @param distance 0, 1, 2
+	 * @param direction 1 - from left, 2 - front, 3 - right
 	 */
 	public void startPlayObstacle(int direction, int distance) {
 		int id = idByName("obstacle");
@@ -79,17 +105,17 @@ public class SoundManager {
 		
 		float left = 0, right = 0;
 		switch (direction) {
-		case 0:
-			left = 1;
+		case 3:
+			left = 0.5f;
 			right = 0;
 			break;
-		case 1:
-			left = 1;   
-			right = 1 ;
-			break;
 		case 2:
+			left = 0.5f;   
+			right = 0.5f;
+			break;
+		case 1:
 			left = 0;   
-			right = 1;
+			right = 0.5f;
 			break;
 		default:
 			break;
@@ -98,17 +124,17 @@ public class SoundManager {
 //		left *= (Math.pow(0.75, distance));
 //		right *= (Math.pow(0.75, distance));
 		
-		mSoundPool.play(id, left, right, 1, INF_LOOP, distance);
+		mSoundPool.play(id, left, right, 1, INF_LOOP, 1);
 	}
 
 	public void playPata() {
 		int id = idByName("pata");
-		mSoundPool.play(id, 0.5f, 1, 1, 0, 0);
+		mSoundPool.play(id, mLeft, mRight, 1, 0, 0);
 	}
 
 	public void playPon() { 
 		int id = idByName("pon");
-		mSoundPool.play(id, 1, 0.5f, 1, 0, 0);
+		mSoundPool.play(id, mLeft, mRight, 1, 0, 0);
 	}
 	   
 	public void playTurnLeft() {

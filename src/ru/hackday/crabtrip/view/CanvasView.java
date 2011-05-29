@@ -15,6 +15,8 @@ public class CanvasView extends View {
 
     public static final Paint STONE_PAINT = new Paint();
     public static final Paint SHIP_PAINT = new Paint();
+    
+    public static final Paint SCORES_PAINT = new Paint();
 
     private Model model;
     private static final int STEPS_IN_MOVE = MyActivity.TICKS_PER_STEP;
@@ -37,6 +39,8 @@ public class CanvasView extends View {
     private void init() {
         STONE_PAINT.setColor(Color.RED);
         SHIP_PAINT.setColor(Color.BLUE);
+        SCORES_PAINT.setColor(Color.BLACK);
+        SCORES_PAINT.setTextSize(25);
     }
 
     public void setModel(Model model) {
@@ -63,6 +67,9 @@ public class CanvasView extends View {
 //        System.out.println("shipPosition = " + shipPosition);
         //canvas.drawRect(0, (shipPosition - 1) * scaleHeight, scaleWidth, shipPosition * scaleHeight, SHIP_PAINT);
 		canvas.drawRect((shipPosition - 1) * scaleWidth, scaleHeight * (width - 1), shipPosition * scaleWidth, getHeight(), SHIP_PAINT);
+		
+		canvas.drawText(model.getDistance()+"", 10, 30, SCORES_PAINT);
+		canvas.drawText(ship.getLife()+"", 10, 60, SCORES_PAINT);
     }
 
 
