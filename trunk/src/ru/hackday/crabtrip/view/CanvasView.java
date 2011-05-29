@@ -20,7 +20,7 @@ public class CanvasView extends View {
     public static final Paint SCORES_PAINT = new Paint();
 
     private Model model;
-    private static final int STEPS_IN_MOVE = 4;
+    private static final int STEPS_IN_MOVE = 6;
 
     public CanvasView(Context context) {
         super(context);
@@ -87,10 +87,12 @@ public class CanvasView extends View {
     private int step = 0;
 
     public void step() {
+        System.out.println("CanvasView.step");
         step++;
     }
 
     public void reset() {
+        System.out.println("CanvasView.reset");
         step = 0;
     }
 }
