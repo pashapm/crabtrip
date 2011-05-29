@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.TextView;
+import ru.hackday.crabtrip.view.TapView;
 
 public class MyActivity extends Activity implements OnTouchListener {
 	public static final int TICKS_PER_STEP = 6;
@@ -27,6 +28,7 @@ public class MyActivity extends Activity implements OnTouchListener {
 	
 	private Thread mRenderThread;
 	private CanvasView mView;
+	private TapView overlay;
 	private SoundManager mSoundManager;
 	private Vibrator mVibrator;
 	
@@ -43,6 +45,7 @@ public class MyActivity extends Activity implements OnTouchListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
         mView = (CanvasView) findViewById(R.id.gameView);
+        overlay = (TapView) findViewById(R.id.overlay);
         mSoundManager = SoundManager.getInstance(getApplicationContext());
         findViewById(R.id.up).setOnTouchListener(this);
         findViewById(R.id.down).setOnTouchListener(this);
@@ -152,6 +155,7 @@ public class MyActivity extends Activity implements OnTouchListener {
 		if (arg1.getAction() != MotionEvent.ACTION_DOWN) {
 			return true;
 		}
+        overlay.tap(arg1);
 		
 		switch (arg0.getId()) {
 		case R.id.up:

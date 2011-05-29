@@ -20,5 +20,10 @@
 			android:text="PON" android:background="#33ff0000" android:src="@drawable/boo" android:scaleType="center"/>
 	</LinearLayout>
 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerHorizontal="true" android:textSize="45sp" android:text="LEFT!" android:textColor="#ff0000" android:textStyle="bold" android:id="@+id/display"></TextView>
+
+<ru.hackday.crabtrip.view.TapView
+		android:id="@+id/overlay" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" />
+
 </RelativeLayout>
 
