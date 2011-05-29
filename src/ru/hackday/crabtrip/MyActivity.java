@@ -16,7 +16,7 @@ import android.view.View.OnTouchListener;
 import android.view.Window;
 
 public class MyActivity extends Activity implements OnTouchListener {
-	private static final int TICKS_PER_STEP = 40;
+	private static final int TICKS_PER_STEP = 6;
 	
 	
 	private Thread mRenderThread;
@@ -25,6 +25,8 @@ public class MyActivity extends Activity implements OnTouchListener {
 	private Vibrator mVibrator;
 	
 	private Model mModel;
+	
+	private int mTicks;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,10 +41,14 @@ public class MyActivity extends Activity implements OnTouchListener {
         mVibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         
         Handler drumHandler = new Handler(new Callback() {
-			
 			@Override
 			public boolean handleMessage(Message msg) {
 				mSoundManager.playDrum();
+				if (mTicks++ % TICKS_PER_STEP == 0) {
+					mTicks = 1;
+					mModel.move(Direction.FORWARD);
+					checkGameOver();
+				}
 				return true;
 			}
 		});
@@ -61,11 +67,18 @@ public class MyActivity extends Activity implements OnTouchListener {
 					break;
 				case 2:
 					mModel.move(Direction.LEFT);
+					mTicks = 1;					
+					mVibrator.vibrate(100);
+
 					mSoundManager.playTurnLeft();
 					Log.d("CRAAAAAAAAB", "PATA PATA PATA PON!");					
 					break;
 				case 3:
 					mModel.move(Direction.RIGHT);
+					mTicks = 1;
+					
+					mVibrator.vibrate(100);
+
 					mSoundManager.playTurnRight();
 					Log.d("CRAAAAAAAAB", "PON PON PATA PON!");
 					break;
@@ -87,8 +100,6 @@ public class MyActivity extends Activity implements OnTouchListener {
     protected void onResume() {
     	mRenderThread =  new Thread(new Runnable() {
             public void run() {
-            	            	
-            	int ticks = 0;
             	
                 while (! Thread.interrupted()) {
                 	mView.postInvalidate();
@@ -96,12 +107,6 @@ public class MyActivity extends Activity implements OnTouchListener {
 						Thread.sleep(50);
 					} catch (InterruptedException e) {
 						return;
-					}
-					
-					if (ticks++ % TICKS_PER_STEP == 0) {//TODO test
-						ticks = 1;
-						mModel.move(Direction.FORWARD);
-						checkGameOver();
 					}
                 }
             }

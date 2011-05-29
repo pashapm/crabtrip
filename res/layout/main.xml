@@ -10,6 +10,11 @@
             android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="#ffffff"/>
 
     
-<LinearLayout android:id="@+id/LinearLayout01" android:layout_height="fill_parent" android:layout_width="fill_parent" android:orientation="vertical"><Button android:id="@+id/up" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="fill_parent" android:text="PATA" android:background="#3300ff00"/><Button android:id="@+id/down" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="fill_parent" android:text="PON" android:background="#33ff0000"/></LinearLayout>
+<LinearLayout 
+    android:id="@+id/LinearLayout01" 
+    android:layout_height="fill_parent" 
+    android:layout_width="fill_parent" 
+    android:orientation="horizontal">
+        <Button android:id="@+id/up" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="fill_parent" android:text="PATA" android:background="#3300ff00"/><Button android:id="@+id/down" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="fill_parent" android:text="PON" android:background="#33ff0000"/></LinearLayout>
 </RelativeLayout>
 

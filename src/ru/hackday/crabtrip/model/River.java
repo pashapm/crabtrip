@@ -6,7 +6,7 @@ import java.util.Random;
 public class River {
 	private static final String TAG = "River";
 	
-	public static final int LENGTH = 4;
+	public static final int LENGTH = 3;
 	public static final int WIDTH = 3;
 	
 	private final LinkedList<Integer> mField = new LinkedList<Integer>();
