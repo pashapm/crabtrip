@@ -26,7 +26,7 @@ public class River {
 		int nextStone = mField.remove(0);
 		int newStone = 0;
 		if (mField.get(LENGTH - 2) == 0) {
-			newStone = mRand.nextInt(WIDTH + 1);
+			newStone = mRand.nextInt(10000) % (WIDTH + 1);
 		}
 		mField.add(newStone);
 		
