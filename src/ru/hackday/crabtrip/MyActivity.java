@@ -46,9 +46,12 @@ public class MyActivity extends Activity implements OnTouchListener {
 				mSoundManager.playDrum();
 				if (mTicks++ % TICKS_PER_STEP == 0) {
 					mTicks = 1;
+                    mView.reset();
 					mModel.move(Direction.FORWARD);
 					checkGameOver();
-				}
+				} else {
+                    mView.step();
+                }
 				return true;
 			}
 		});
