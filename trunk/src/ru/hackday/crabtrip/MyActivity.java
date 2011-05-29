@@ -62,11 +62,13 @@ public class MyActivity extends Activity implements OnTouchListener {
 				case 2:
 					mModel.move(Direction.LEFT);
 					mVibrator.vibrate(100);
+					mSoundManager.playTurnLeft();
 					Log.d("CRAAAAAAAAB", "PATA PATA PATA PON!");					
 					break;
 				case 3:
 					mModel.move(Direction.RIGHT);
 					mVibrator.vibrate(100);
+					mSoundManager.playTurnRight();
 					Log.d("CRAAAAAAAAB", "PON PON PATA PON!");
 					break;
 				default:
