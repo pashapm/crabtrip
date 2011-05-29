@@ -52,4 +52,12 @@ public class Model {
 	public int getDistance() {
 		return mDistance;
 	}
+
+    public River getmRiver() {
+        return mRiver;
+    }
+
+    public Ship getmShip() {
+        return mShip;
+    }
 }
