@@ -4,6 +4,9 @@ import ru.hackday.crabtrip.model.Direction;
 import ru.hackday.crabtrip.model.Model;
 import ru.hackday.crabtrip.view.CanvasView;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Handler.Callback;
@@ -18,6 +21,7 @@ import android.view.Window;
 public class MyActivity extends Activity implements OnTouchListener {
 	public static final int TICKS_PER_STEP = 6;
 	
+	private static final int DIALOG_GAME_OVER = 0;
 	
 	private Thread mRenderThread;
 	private CanvasView mView;
@@ -149,7 +153,33 @@ public class MyActivity extends Activity implements OnTouchListener {
 	private void checkGameOver() {
 		if (mModel.isGameOver()) {
 			Log.d("CRAAAAAAAAB", "Game Over. Distance = " + mModel.getDistance());
-			mModel.setDistance(0);
+			
+			showDialog(DIALOG_GAME_OVER);
 		}
 	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		if (DIALOG_GAME_OVER == id) {		
+			builder.setMessage("Your distance: " + mModel.getDistance())
+			       .setCancelable(false)
+			       .setPositiveButton("Restart", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			               mModel.reset(); 
+			        	   dialog.cancel();
+			           }
+			       })
+			       .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			        	   MyActivity.this.finish();
+			           }
+			       });
+		}
+		
+		return builder.create();
+	}
+	
+	
 }

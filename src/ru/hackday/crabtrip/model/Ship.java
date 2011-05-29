@@ -2,10 +2,12 @@ package ru.hackday.crabtrip.model;
 
 public class Ship {
 	private static final int INIT_POSITION = 2;
-	private static final int INIT_SPEED = 1;	
+	private static final int INIT_SPEED = 1;
+	private static final int INIT_LIFE = 2;
 	
 	private int mPosition;
 	private int mSpeed;	
+	private int mLife;
 	
 	private int mLeftCoast;
 	private int mRightCoast;
@@ -13,6 +15,7 @@ public class Ship {
 	public void init(final int leftCoast, final int rightCoast) {
 		mPosition = INIT_POSITION;
 		mSpeed = INIT_SPEED;
+		mLife = INIT_LIFE;
 		
 		mLeftCoast = leftCoast;
 		mRightCoast = rightCoast;
@@ -60,5 +63,13 @@ public class Ship {
 		}	
 		
 		return positionLog.toString();
+	}
+	
+	public int getLife() {
+		return mLife;
+	}
+	
+	public void setLife(int life) {
+		mLife = life;
 	}
 }
