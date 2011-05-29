@@ -29,7 +29,7 @@ public class Model {
 		
 		mRiver.shift();
 		boolean success = mShip.move(direction);
-		Log.d(TAG, mRiver.toString() + mShip.toString());
+//		Log.d(TAG, mRiver.toString() + mShip.toString());
 		return success; 		
 	}
 	

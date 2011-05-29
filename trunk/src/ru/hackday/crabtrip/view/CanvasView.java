@@ -57,7 +57,7 @@ public class CanvasView extends View {
 
         Ship ship = model.getmShip();
         int shipPosition = ship.getPosition();
-        System.out.println("shipPosition = " + shipPosition);
+//        System.out.println("shipPosition = " + shipPosition);
         canvas.drawRect(0, (shipPosition - 1) * scaleHeight, scaleWidth, shipPosition * scaleHeight, SHIP_PAINT);
     }
 }

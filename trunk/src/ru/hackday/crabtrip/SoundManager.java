@@ -29,17 +29,17 @@ public class SoundManager {
 	private Map<String, Integer> mSounds = new HashMap<String, Integer>();
 	
 	public void loadSounds() {
-		int id = mSoundPool.load(mCtx, R.raw.drum, 1);
+		int id = mSoundPool.load(mCtx, R.raw.drum_mono, 1);
 		mSounds.put("drum", id);
 		id = mSoundPool.load(mCtx, R.raw.drum, 1);
 		mSounds.put("obstacle", id);
 		//id = mSoundPool.load(mCtx, R.raw.pata, 1);
-		id = mSoundPool.load(mCtx, R.raw.drum_success, 1);
+		id = mSoundPool.load(mCtx, R.raw.drum_success_mono, 1);
 		mSounds.put("pata", id);
 		//id = mSoundPool.load(mCtx, R.raw.pon, 1);
-		id = mSoundPool.load(mCtx, R.raw.drum_success, 1);
+		id = mSoundPool.load(mCtx, R.raw.drum_success_mono, 1);
 		mSounds.put("pon", id);
-		id = mSoundPool.load(mCtx, R.raw.ship_sound, 1);
+		id = mSoundPool.load(mCtx, R.raw.rotate, 1);
 		mSounds.put("turn", id);
 	}
 	
@@ -59,9 +59,14 @@ public class SoundManager {
 		mSoundPool.play(idByName("crash"), 1f, 1f, 1, 0, 1);
 	}
 	
-	
-	public void playCommandSound(int command) {
-		
+	/**
+	 * 
+	 * @param direction 0 - left, 1 - right
+	 */
+	public void playRotate(int direction) {
+		float l = direction == 0 ? 1 : 0;
+		float r = direction == 0 ? 0 : 1;
+		mSoundPool.play(idByName("rotate"), l, r, 1, 0, 1);
 	}
 	
 	/**
