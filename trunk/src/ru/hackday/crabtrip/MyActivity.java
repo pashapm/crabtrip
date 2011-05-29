@@ -141,7 +141,7 @@ public class MyActivity extends Activity implements OnTouchListener {
 	private void checkGameOver() {
 		if (mModel.isGameOver()) {
 			Log.d("CRAAAAAAAAB", "Game Over. Distance = " + mModel.getDistance());
-			mModel.reset();
+			mModel.setDistance(0);
 		}
 	}
 }

@@ -52,6 +52,10 @@ public class Model {
 	public int getDistance() {
 		return mDistance;
 	}
+	
+	public void setDistance(final int distance) {
+		mDistance = distance;
+	}
 
     public River getmRiver() {
         return mRiver;
