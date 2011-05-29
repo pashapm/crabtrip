@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
+import android.widget.TextView;
 
 public class MyActivity extends Activity implements OnTouchListener {
 	public static final int TICKS_PER_STEP = 6;
@@ -33,6 +34,8 @@ public class MyActivity extends Activity implements OnTouchListener {
 	
 	private int mTicks;
 	
+	TextView mDisplay;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +46,10 @@ public class MyActivity extends Activity implements OnTouchListener {
         mSoundManager = SoundManager.getInstance(getApplicationContext());
         findViewById(R.id.up).setOnTouchListener(this);
         findViewById(R.id.down).setOnTouchListener(this);
-//        findViewById(R.id.up).setVisibility(View.INVISIBLE);
-//        findViewById(R.id.down).setVisibility(View.INVISIBLE);
+        findViewById(R.id.display).setVisibility(View.INVISIBLE);
         mVibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        
+        mDisplay =  (TextView) findViewById(R.id.display);
         
         Handler drumHandler = new Handler(new Callback() {
 			@Override
@@ -83,7 +87,8 @@ public class MyActivity extends Activity implements OnTouchListener {
 					mVibrator.vibrate(100);
 
 					mSoundManager.playTurnLeft();
-					Log.d("CRAAAAAAAAB", "PATA PATA PATA PON!");					
+					Log.d("CRAAAAAAAAB", "PATA PATA PATA PON!");	
+					showForWhile("LEFT !"); 
 					break;
 				case 3:
 					mModel.move(Direction.RIGHT);
@@ -93,6 +98,7 @@ public class MyActivity extends Activity implements OnTouchListener {
 
 					mSoundManager.playTurnRight();
 					Log.d("CRAAAAAAAAB", "PON PON PATA PON!");
+					showForWhile("RIGHT !");
 					break;
 				default:
 					break;
@@ -150,11 +156,9 @@ public class MyActivity extends Activity implements OnTouchListener {
 		switch (arg0.getId()) {
 		case R.id.up:
 			EventBus.getInstance().postPatapon(0);
-//			showForWhile(arg0);
 			break;
 		case R.id.down:
 			EventBus.getInstance().postPatapon(1);
-//			showForWhile(arg0);
 			break;
 		default:
 			break;
@@ -162,14 +166,15 @@ public class MyActivity extends Activity implements OnTouchListener {
 		return true;
 	}
 	
-	private void showForWhile(final View v) {
-		v.setVisibility(View.VISIBLE);
+	private void showForWhile(String text) {
+		mDisplay.setVisibility(View.VISIBLE);
+		mDisplay.setText(text);
 		Handler h = new Handler();
 		h.postDelayed(new Runnable() {
 			
 			@Override
 			public void run() {
-				v.setVisibility(View.INVISIBLE);
+				mDisplay.setVisibility(View.INVISIBLE);
 			}
 		}, 1000);
 	}
