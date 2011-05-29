@@ -29,13 +29,15 @@ public class SoundManager {
 	private Map<String, Integer> mSounds = new HashMap<String, Integer>();
 	
 	public void loadSounds() {
-		int id = mSoundPool.load(mCtx, R.raw.helmet2, 1);
+		int id = mSoundPool.load(mCtx, R.raw.drum, 1);
 		mSounds.put("drum", id);
-		id = mSoundPool.load(mCtx, R.raw.helmet2, 1);
+		id = mSoundPool.load(mCtx, R.raw.drum, 1);
 		mSounds.put("obstacle", id);
-		id = mSoundPool.load(mCtx, R.raw.pata, 1);
+		//id = mSoundPool.load(mCtx, R.raw.pata, 1);
+		id = mSoundPool.load(mCtx, R.raw.drum_success, 1);
 		mSounds.put("pata", id);
-		id = mSoundPool.load(mCtx, R.raw.pon, 1);
+		//id = mSoundPool.load(mCtx, R.raw.pon, 1);
+		id = mSoundPool.load(mCtx, R.raw.drum_success, 1);
 		mSounds.put("pon", id);
 	}
 	
@@ -94,12 +96,12 @@ public class SoundManager {
 
 	public void playPata() {
 		int id = idByName("pata");
-		mSoundPool.play(id, 1, 1, 1, 0, 0);
+		mSoundPool.play(id, 0.5f, 1, 1, 0, 0);
 	}
 
 	public void playPon() { 
 		int id = idByName("pon");
-		mSoundPool.play(id, 1, 1, 1, 0, 0);
+		mSoundPool.play(id, 1, 0.5f, 1, 0, 0);
 	}
 	   
 	
