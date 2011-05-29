@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Gallery;
+import ru.hackday.crabtrip.MyActivity;
 import ru.hackday.crabtrip.model.Model;
 import ru.hackday.crabtrip.model.River;
 import ru.hackday.crabtrip.model.Ship;
@@ -20,7 +21,7 @@ public class CanvasView extends View {
     public static final Paint SCORES_PAINT = new Paint();
 
     private Model model;
-    private static final int STEPS_IN_MOVE = 6;
+    private static final int STEPS_IN_MOVE = MyActivity.TICKS_PER_STEP;
 
     public CanvasView(Context context) {
         super(context);
@@ -56,22 +57,19 @@ public class CanvasView extends View {
     protected void onDraw(Canvas canvas) {
         int length = River.LENGTH;
         int width = River.WIDTH;
-        int scaleWidth = getWidth() / length;
-        int scaleHeight = getHeight() / width;
-        int delta = scaleHeight * step / STEPS_IN_MOVE;
+        float scaleWidth = 1.0f * getWidth() / length;
+        float scaleHeight = 1.0f * getHeight() / width;
+        int delta = (int) (scaleHeight * step / STEPS_IN_MOVE);
 
         River river = model.getmRiver();
         for (int i = 0; i < length; i++) {
             int stone = river.getStone(i);
             if (stone == 0) continue;
-            //canvas.drawRect(i * scaleWidth, (stone - 1) * scaleHeight, (i + 1) * scaleWidth, stone * scaleHeight, STONE_PAINT);
             canvas.drawRect((stone - 1) * scaleWidth, delta + (length - i - 1) * scaleHeight, stone * scaleWidth, delta + (length - i) * scaleHeight, STONE_PAINT);
         }
 
         Ship ship = model.getmShip();
         int shipPosition = ship.getPosition();
-//        System.out.println("shipPosition = " + shipPosition);
-        //canvas.drawRect(0, (shipPosition - 1) * scaleHeight, scaleWidth, shipPosition * scaleHeight, SHIP_PAINT);
         canvas.drawRect((shipPosition - 1) * scaleWidth, scaleHeight * (width - 1), shipPosition * scaleWidth, getHeight(), SHIP_PAINT);
 
         if (model.isGameOver()) {
