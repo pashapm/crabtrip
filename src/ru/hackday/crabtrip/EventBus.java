@@ -15,7 +15,7 @@ public class EventBus {
 	private static final float DELTA_DELIM = 5f; // what part of the period is the delta
 	private static final long DELTA = (long) ((1000/DRUM_FREQ) / DELTA_DELIM);  
 	
-	private static final long DRUM_BEAT_OFFSET = 180; //experimental
+	private static final long DRUM_BEAT_OFFSET = 0; //experimental
 	
 	public Handler mDrumHandler;
 	public Handler mTapHandler;
