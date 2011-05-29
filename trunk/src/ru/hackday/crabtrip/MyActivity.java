@@ -61,14 +61,12 @@ public class MyActivity extends Activity implements OnTouchListener {
 					break;
 				case 2:
 					mModel.move(Direction.LEFT);
-					mView.moveLeft();
 					mVibrator.vibrate(100);
 					Log.d("CRAAAAAAAAB", "PATA PATA PATA PON!");					
 					break;
 				case 3:
 					mModel.move(Direction.RIGHT);
-					mView.moveRight();
-					mVibrator.vibrate(100);					
+					mVibrator.vibrate(100);
 					Log.d("CRAAAAAAAAB", "PON PON PATA PON!");
 					break;
 				default:
@@ -82,6 +80,7 @@ public class MyActivity extends Activity implements OnTouchListener {
         EventBus.getInstance().mTapHandler = mTapHandler;
         
         mModel = new Model();
+        mView.setModel(mModel);
     }
     
     @Override
