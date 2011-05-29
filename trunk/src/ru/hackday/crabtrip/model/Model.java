@@ -44,7 +44,7 @@ public class Model {
 	public int getNearestStonePosition() {
 		int stoneDistance = getNearestStoneDistance();
 		
-		return stoneDistance > 0 ? mRiver.getStone(stoneDistance) : -1;
+		return stoneDistance > 0 ? mRiver.getStone(stoneDistance) : 2;
 	}
 	
 	public int getNearestStoneDistance() {

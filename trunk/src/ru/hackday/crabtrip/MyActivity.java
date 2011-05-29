@@ -52,12 +52,14 @@ public class MyActivity extends Activity implements OnTouchListener {
 					mTicks = 1;
                     mView.reset();
 					mModel.move(Direction.FORWARD);
+					updateSonar();
 					checkGameOver();
 				} else {
                     mView.step();
                 }
 				return true;
 			}
+
 		});
         EventBus.getInstance().mDrumHandler = drumHandler;
         
@@ -103,8 +105,13 @@ public class MyActivity extends Activity implements OnTouchListener {
         mView.setModel(mModel);
     }
     
+    private void updateSonar() {
+    	Log.d("SONAR", mModel.getNearestStonePosition()+"");
+    	mSoundManager.updateDirection(mModel.getNearestStonePosition());
+	}
+    
     @Override
-    protected void onResume() {
+    protected void onResume() { 
     	mRenderThread =  new Thread(new Runnable() {
             public void run() {
             	
